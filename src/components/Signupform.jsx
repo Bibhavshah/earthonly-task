@@ -18,6 +18,28 @@ const intialValues = {
 };
 
 function Signupform() {
+  const roleList = [
+    { id: 1, value: 'Role' },
+    { id: 2, value: 'Agency / Partner Developer' },
+    { id: 3, value: 'Hobbyist' },
+    { id: 4, value: 'Professional Developer' },
+    { id: 5, value: 'Student' },
+    { id: 6, value: 'Technology / Business manager' },
+    { id: 7, value: 'Other' },
+  ];
+  const languageList = [
+    { id: 1, value: 'Select a Language' },
+    { id: 2, value: 'Ruby' },
+    { id: 3, value: 'Python' },
+    { id: 4, value: 'Java' },
+    { id: 5, value: 'PHP' },
+    { id: 6, value: 'Scala' },
+    { id: 7, value: 'Nodejs' },
+    { id: 8, value: 'Closure' },
+    { id: 9, value: 'Go' },
+    { id: 10, value: 'I use another language' },
+    { id: 11, value: 'I am not a developer' },
+  ];
   const [emailsent, setEmailsent] = useState(false);
   const [verified, setVerified] = useState(false);
   const options = useMemo(() => countryList().getData(), []);
@@ -29,8 +51,10 @@ function Signupform() {
     useFormik({
       initialValues: intialValues,
       validationSchema: SignupSchema,
-      onSubmit: (value, { resetForm }) => {
-        console.log(value);
+      onSubmit: (formValues, { resetForm, setSubmitting }) => {
+        console.log(formValues);
+        handleSubmitClick();
+        setSubmitting(false);
         resetForm({ values: intialValues });
       },
     });
@@ -39,7 +63,7 @@ function Signupform() {
     e.preventDefault();
     try {
       await sendSignInLinkToEmail(auth, values.email, {
-        url: 'https://earthonly-task.vercel.app/signupsuccess',
+        url: 'http://localhost:3000/signupsuccess',
         handleCodeInApp: true,
       }).then(() => {
         localStorage.setItem('emailForSignIn', values.email);
@@ -49,183 +73,194 @@ function Signupform() {
     } catch (error) {
       alert(error.message || error);
     }
+    console.log(values);
   };
 
+  const formErrors = Object.entries(errors).map((value) => (
+    <ul className={styles['form-error-items']}>
+      <li>{value[1]}</li>
+    </ul>
+  ));
+
   return (
-    <div className={styles['signup-form']}>
-      {emailsent ? (
-        <div className={styles['form-success']}>
-          <h2>Success!</h2>
-          <p>
-            We have sent you an email with a link to complete your sign up.
-            Please check your inbox.
-          </p>
-        </div>
+    <div className={styles['signup-form-container']}>
+      {touched && Object.entries(errors).length > 0 ? (
+        <div className={styles['form-errors']}>{formErrors}</div>
       ) : null}
+      <div className={styles['signup-form']}>
+        {emailsent ? (
+          <div className={styles['form-success']}>
+            <h2>Success!</h2>
+            <p>
+              We have sent you an email with a link to complete your sign up.
+              Please check your inbox.
+            </p>
+          </div>
+        ) : null}
 
-      <form
-        onSubmit={handleSubmit}
-        className={styles.form}
-      >
-        <div className={styles['form-item']}>
-          <label htmlFor="firstName">First Name</label>
-          <input
-            type="name"
-            autoComplete="off"
-            name="firstName"
-            id="firstName"
-            placeholder="First Name"
-            value={values.firstName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.firstName && touched.firstName ? (
-            <p className={styles['form-error']}>{errors.firstName}</p>
-          ) : null}
-        </div>
-        <div className={styles['form-item']}>
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            id="lastName"
-            type="name"
-            autoComplete="off"
-            name="lastName"
-            placeholder="Last Name"
-            value={values.lastName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.lastName && touched.lastName ? (
-            <p className={styles['form-error']}>{errors.lastName}</p>
-          ) : null}
-        </div>
-        <div className={styles['form-item']}>
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            autoComplete="off"
-            name="email"
-            id="email"
-            placeholder="Email Address"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.email && touched.email ? (
-            <p className={styles['form-error']}>{errors.email}</p>
-          ) : null}
-        </div>
-        <div className={styles['form-item']}>
-          <label htmlFor="companyName">Company Name</label>
-          <input
-            type="name"
-            autoComplete="off"
-            name="companyName"
-            id="companyName"
-            placeholder="Company Name"
-            value={values.companyName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.companyName && touched.companyName ? (
-            <p className={styles['form-error']}>{errors.companyName}</p>
-          ) : null}
-        </div>
-        <div className={styles['form-item']}>
-          <label htmlFor="role">Role</label>
-          <select
-            name="role"
-            id="role"
-            placeholder="Role"
-            value={values.role}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          >
-            <option value="role">Role</option>
-            <option value="agency">Agency / Partner Developer</option>
-            <option value="hobbyist">Hobbyist</option>
-            <option value="developer">Professional Developer</option>
-            <option value="student">Student</option>
-            <option value="technology">Technology / Business manager</option>
-            <option value="other">Other</option>
-          </select>
-          {errors.role && touched.role ? (
-            <p className={styles['form-error']}>{errors.role}</p>
-          ) : null}
-        </div>
-
-        <div className={styles['form-item']}>
-          <label htmlFor="country">Country</label>
-          <select
-            placeholder="Country / Region"
-            name="country"
-            id="country"
-            value={values.country}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          >
-            <option value="country">Country / Region</option>
-            {options.map((country) => (
-              <option
-                key={country.label}
-                value={country.label}
-              >
-                {country.label}
-              </option>
-            ))}
-          </select>
-          {errors.country && touched.country ? (
-            <p className={styles['form-error']}>{errors.country}</p>
-          ) : null}
-        </div>
-
-        <div className={styles['form-item']}>
-          <label htmlFor="language">Primary Development Language</label>
-          <select
-            name="language"
-            id="language"
-            placeholder="Select a Language"
-            value={values.language}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          >
-            <option value="language">Select a Language</option>
-            <option value="ruby">Ruby</option>
-            <option value="php">PHP</option>
-            <option value="python">Python</option>
-            <option value="node">Node.js</option>
-            <option value="java">Java</option>
-            <option value="clojure">Clojure</option>
-            <option value="scala">Scala</option>
-            <option value="go">Go</option>
-            <option value="other">I use another language</option>
-            <option value="none">I&apos;m not a developer</option>
-          </select>
-          {errors.language && touched.language ? (
-            <p className={styles['form-error']}>{errors.language}</p>
-          ) : null}
-        </div>
-        <ReCAPTCHA
-          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-          onChange={onChange}
-          className={styles.recaptcha}
-        />
-        <button
-          type="submit"
-          className={styles.btn}
-          disabled={!verified}
-          onClick={handleSubmitClick}
+        <form
+          onSubmit={handleSubmit}
+          className={styles.form}
         >
-          CREATE AN ACCOUNT
-        </button>
-      </form>
-      <p className={styles.details}>
-        Signing up signifies that you have read and agree to the
-        <a href="/">Terms of Service</a>
-        and our
-        <a href="/">Privacy Policy.</a>
-        <a href="/">Cookie Preferences.</a>
-      </p>
+          <div className={styles['form-item']}>
+            <div className={styles.label}>
+              <label htmlFor="firstName">First Name</label>
+              <span style={{ color: 'red' }}>*</span>
+            </div>
+            <input
+              type="name"
+              autoComplete="off"
+              name="firstName"
+              id="firstName"
+              placeholder="First Name"
+              value={values.firstName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className={styles['form-item']}>
+            <div className={styles.label}>
+              <label htmlFor="lastName">Last Name</label>
+              <span style={{ color: 'red' }}>*</span>
+            </div>
+            <input
+              id="lastName"
+              type="name"
+              autoComplete="off"
+              name="lastName"
+              placeholder="Last Name"
+              value={values.lastName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className={styles['form-item']}>
+            <div className={styles.label}>
+              <label htmlFor="email">Email Address</label>
+              <span style={{ color: 'red' }}>*</span>
+            </div>
+            <input
+              type="email"
+              autoComplete="off"
+              name="email"
+              id="email"
+              placeholder="Email Address"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className={styles['form-item']}>
+            <div className={styles.label}>
+              <label htmlFor="firstName">First Name</label>
+              <span style={{ color: 'red' }}>*</span>
+            </div>
+            <input
+              type="name"
+              autoComplete="off"
+              name="companyName"
+              id="companyName"
+              placeholder="Company Name"
+              value={values.companyName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className={styles['form-item']}>
+            <div className={styles.label}>
+              <label htmlFor="role">Role</label>
+              <span style={{ color: 'red' }}>*</span>
+            </div>
+            <select
+              name="role"
+              id="role"
+              placeholder="Role"
+              value={values.role}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              {roleList.map((role) => (
+                <option
+                  key={role.id}
+                  value={role.value}
+                >
+                  {role.value}
+                </option>
+              ))}
+              ,
+            </select>
+          </div>
+
+          <div className={styles['form-item']}>
+            <div className={styles.label}>
+              <label htmlFor="country">Country</label>
+              <span style={{ color: 'red' }}>*</span>
+            </div>
+            <select
+              placeholder="Country / Region"
+              name="country"
+              id="country"
+              value={values.country}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              <option value="country">Country / Region</option>
+              {options.map((country) => (
+                <option
+                  key={country.label}
+                  value={country.label}
+                >
+                  {country.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles['form-item']}>
+            <div className={styles.label}>
+              <label htmlFor="language">Primary Development Language</label>
+              <span style={{ color: 'red' }}>*</span>
+            </div>
+            <select
+              name="language"
+              id="language"
+              placeholder="Select a Language"
+              value={values.language}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              {languageList.map((language) => (
+                <option
+                  key={language.id}
+                  value={language.value}
+                >
+                  {language.value}
+                </option>
+              ))}
+            </select>
+          </div>
+          <ReCAPTCHA
+            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+            onChange={onChange}
+            className={styles.recaptcha}
+          />
+          <button
+            type="submit"
+            className={styles.btn}
+            disabled={!verified}
+            onClick={handleSubmitClick}
+          >
+            CREATE AN ACCOUNT
+          </button>
+        </form>
+        <p className={styles.details}>
+          Signing up signifies that you have read and agree to the
+          <a href="/">Terms of Service</a>
+          and our
+          <a href="/">Privacy Policy.</a>
+          <a href="/">Cookie Preferences.</a>
+        </p>
+      </div>
     </div>
   );
 }

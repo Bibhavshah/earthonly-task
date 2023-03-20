@@ -1,10 +1,10 @@
 .app {
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .helmet {
-  width: 100%;
+  width: 100vw;
   height: 2rem;
   background-color: #eaf5fe;
   display: flex;
@@ -21,13 +21,14 @@
 
 .span {
   color: #03234d;
+  font-size: 0.7rem;
 }
 
 .header-main {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  margin: auto;
+  width: 53%;
+  margin: -2.54rem auto;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -66,7 +67,7 @@ Button:hover {
   background-color: #f9f9fb;
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 53%;
   min-width: 700px;
   height: 100%;
   min-height: 900px;
@@ -75,7 +76,7 @@ Button:hover {
 }
 
 .benefits {
-  width: 50%;
+  width: 55%;
   min-width: 300px;
   padding: 4rem 2rem;
 }
@@ -104,11 +105,23 @@ Button:hover {
   height: 1px;
 }
 
-.signup-form {
+.signup-form-container {
   width: 50%;
   min-width: 330px;
+  margin: auto -2rem;
+  height: 90%;
+  min-height: 850px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-form {
+  width: 100%;
+  min-width: 330px;
   margin: auto -1rem;
-  height: 95%;
+  height: 100%;
   min-height: 800px;
   display: flex;
   flex-direction: column;
@@ -153,7 +166,8 @@ Button:hover {
   color: #383e40;
 }
 
-.form-item input:focus, .form-item select:focus {
+.form-item input:focus,
+.form-item select:focus {
   outline: none;
   border: 1px solid #7f5af0;
   box-shadow: 0 0 2px rgba(121, 88, 159, 0.5);
@@ -209,10 +223,18 @@ Button:hover {
     justify-content: space-between;
     align-items: center;
   }
+
+  .signup-form-container {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+  }
   .signupPage {
     width: 80%;
     height: 100%;
+    display: flex;
     flex-direction: column;
+    justify-content: center;
   }
 
   .benefits {
@@ -233,13 +255,29 @@ Button:hover {
   }
 }
 
-.form-error {
-  font-size: 0.7rem;
-  color: #b22b27;
+.form-error-item {
+  margin: 0 auto;
+  border: 1px solid #d3d3d3;
+  border-radius: 6px 6px 0 0;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
-.form-success{
+.form-errors {
+  color: #c20707;
+  background: #fdf6f6;
+  border: 1px solid #de7575;
+  padding: 10px 20px 15px;
+  margin-bottom: -10px;
+}
+
+.form-success {
   font-size: 0.7rem;
   color: #1969ca;
   padding: 0.2rem 0.5rem;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }

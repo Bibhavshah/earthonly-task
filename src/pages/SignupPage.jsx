@@ -15,8 +15,9 @@ function SignupPage() {
           className={styles['helmet-img']}
         />
         <Typography>
-          <span className={styles.span}>Salesforece Developers</span>
-          Heroku
+          <span className={styles.span}>Salesforece Developers /</span>
+          {' '}
+          <span style={{ fontSize: '0.65rem' }}>Heroku</span>
         </Typography>
       </div>
       <div className={styles['header-main']}>

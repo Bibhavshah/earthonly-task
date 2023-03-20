@@ -25,5 +25,6 @@ module.exports = {
     'no-console': 'off',
     'no-alert': 'off',
     'object-curly-newline': 'off',
+    'no-use-before-define': 'off',
   },
 };
