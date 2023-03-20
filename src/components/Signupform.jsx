@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { sendSignInLinkToEmail } from 'firebase/auth';
 import styles from '../App.module.css';
 import SignupSchema from '../YupSchema';
-import { auth } from '../firebase';
+import auth from '../firebase.config';
 
 const intialValues = {
   firstName: '',
@@ -54,6 +54,7 @@ function Signupform() {
       onSubmit: (formValues, { resetForm, setSubmitting }) => {
         console.log(formValues);
         handleSubmitClick();
+        console.log('submitted');
         setSubmitting(false);
         resetForm({ values: intialValues });
       },
@@ -84,7 +85,7 @@ function Signupform() {
 
   return (
     <div className={styles['signup-form-container']}>
-      {touched && Object.entries(errors).length > 0 ? (
+      {touched && Object.entries(errors).length > 1 ? (
         <div className={styles['form-errors']}>{formErrors}</div>
       ) : null}
       <div className={styles['signup-form']}>

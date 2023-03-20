@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
+  apiKey: `${process.env.REACT_APP_API_KEY}`,
   authDomain: 'my-new-app-f5454.firebaseapp.com',
   projectId: 'my-new-app-f5454',
   storageBucket: 'my-new-app-f5454.appspot.com',
@@ -14,4 +14,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export { auth, app };
+export default auth;
