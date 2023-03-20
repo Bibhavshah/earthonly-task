@@ -2,13 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCUZuc5X8f8jsmRjFyevDFb_aDX4ci7sSg',
-  authDomain: 'heroku-mock-app.firebaseapp.com',
-  projectId: 'heroku-mock-app',
-  storageBucket: 'heroku-mock-app.appspot.com',
-  messagingSenderId: '675756311069',
-  appId: '1:675756311069:web:5c28caf53977ef173d7cf4',
-  measurementId: 'G-T5EGYBPCJV',
+  apiKey: 'AIzaSyBwnnFrRxviI64XftGiGt2UPktw2Yk1hic',
+  authDomain: 'my-new-app-f5454.firebaseapp.com',
+  projectId: 'my-new-app-f5454',
+  storageBucket: 'my-new-app-f5454.appspot.com',
+  messagingSenderId: '8620507420',
+  appId: '1:8620507420:web:27800a7a907f0ac8a03ad9',
+  measurementId: 'G-S8FZSEW8J2',
 };
 
 const app = initializeApp(firebaseConfig);
