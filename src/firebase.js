@@ -8,7 +8,7 @@ const firebaseConfig = {
   storageBucket: 'heroku-mock-app.appspot.com',
   messagingSenderId: '675756311069',
   appId: '1:675756311069:web:bb1e7a7a10a347a33d7cf4',
-  measurementId: 'G-YK7QW5ERM4'
+  measurementId: 'G-YK7QW5ERM4',
 };
 
 const app = initializeApp(firebaseConfig);
