@@ -39,7 +39,7 @@ function Signupform() {
     e.preventDefault();
     try {
       await sendSignInLinkToEmail(auth, values.email, {
-        url: 'http://localhost:3000/signupsuccess',
+        url: 'https://earthonly-task.vercel.app/signupsuccess',
         handleCodeInApp: true,
       }).then(() => {
         localStorage.setItem('emailForSignIn', values.email);
