@@ -67,7 +67,7 @@ Button:hover {
   background-color: #f9f9fb;
   display: flex;
   justify-content: space-between;
-  width: 53%;
+  width: 50%;
   min-width: 700px;
   height: 100%;
   min-height: 900px;
@@ -76,9 +76,9 @@ Button:hover {
 }
 
 .benefits {
-  width: 55%;
+  width: 60%;
   min-width: 300px;
-  padding: 4rem 2rem;
+  padding: 60px 50px 20px 50px;
 }
 
 .benefits-item {
@@ -103,10 +103,12 @@ Button:hover {
 .line {
   margin: 30px auto 40px;
   height: 1px;
+  opacity: 0.3;
+  background-color: rgba(228, 228, 231, 0);
 }
 
 .signup-form-container {
-  width: 50%;
+  width: 45%;
   min-width: 330px;
   margin: auto -2rem;
   height: 90%;
@@ -206,7 +208,7 @@ Button:hover {
 
 @media screen and (max-width: 850px) {
   .helmet {
-    width: 100cqb;
+    width: 100vw;
   }
   .header-main {
     width: 650px;
@@ -231,6 +233,7 @@ Button:hover {
   }
   .signupPage {
     width: 80%;
+    min-width: 250px;
     height: 100%;
     display: flex;
     flex-direction: column;

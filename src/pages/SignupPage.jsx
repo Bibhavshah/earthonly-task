@@ -43,6 +43,7 @@ function SignupPage() {
                 width: '4.5rem',
                 borderRadius: '4px',
                 textAlign: 'center',
+                fontSize: '13px',
                 ':hover': {
                   backgroundColor: 'rgba(0,0,0,0.5)',
                 },
@@ -59,7 +60,7 @@ function SignupPage() {
             margin: '0 auto',
             textAlign: 'center',
             textShadow: '0 1px 0 rgba(0,0,0,0.25)',
-            fontSize: '2rem',
+            fontSize: '30px',
           }}
         >
           Get started on Heroku today
